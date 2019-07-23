@@ -1,18 +1,21 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-from datetime import datetime
-import logging
 import configparser
-import telebot
-from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
-import os.path
-from pymongo import MongoClient
-import urllib3
 import json
-import re
+import logging
 import os
+import re
+from datetime import datetime
+import telebot
+import urllib3
 from conf.lang import translations
+from pymongo import MongoClient
+from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
+
+# Go to directory
+directory = os.path.dirname(os.path.realpath(__file__))
+os.chdir(directory)
 
 
 # Function for thousand separator
@@ -207,6 +210,8 @@ def keyboardOptionsAddr(infoUserCall, address):
         InlineKeyboardButton(translations[infoUserCall['languageApp']]['editAddr'],
                              callback_data="editAddr-" + address),
         InlineKeyboardButton(translations[infoUserCall['languageApp']]['delAddr'], callback_data="delAddr-" + address),
+        InlineKeyboardButton(translations[infoUserCall['languageApp']]['notifications'],
+                             callback_data="notAddr-" + address),
         InlineKeyboardButton(translations[infoUserCall['languageApp']]['return'], callback_data="myAddrs"))
 
     return markup
@@ -237,6 +242,17 @@ def keyboardEditAddress(infoUserCall, address):
     return markup
 
 
+# Keyboard notifications
+def keyboardNotifications(address):
+    markup = InlineKeyboardMarkup()
+    markup.row_width = 2
+    markup.add(
+        InlineKeyboardButton("ON", callback_data="notON-" + address),
+        InlineKeyboardButton("OFF", callback_data="notOFF-" + address))
+
+    return markup
+
+
 # ---------- Settings Config ----------
 conf = configparser.ConfigParser()
 conf.read('conf/OpenEthereumPool.conf')
@@ -251,11 +267,11 @@ FILELOG = bool(conf['BASIC']['fileLog'])
 if not os.path.exists('log'):
     os.makedirs('log')
 
-logger = logging.getLogger('Pool2Mine')
+logger = logging.getLogger('OpenEthereumPool')
 logger.setLevel(logging.DEBUG)
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
-if FILELOG == True:
+if FILELOG:
     fh = logging.FileHandler(LOG)
     fh.setLevel(logging.DEBUG)
     fh.setFormatter(formatter)
@@ -267,14 +283,14 @@ ch.setFormatter(formatter)
 logger.addHandler(ch)
 # -----------------------------
 
-logger.info("--- Start the bot Pool2Mine ---")
+logger.info("--- Start the bot OpenEthereumPool ---")
 
 # Object for TelegramBot
 bot = telebot.TeleBot(TOKEN)
 
 # Connect to DB
 connectDB = MongoClient(MONGOCONNECTION)
-db = connectDB.BotPool2Mine
+db = connectDB.OpenEthereumPool
 userColl = db.Users
 addrCol = db.Addresses
 
@@ -343,7 +359,7 @@ def message_deleteaddr(message):
 
     else:
         bot.send_message(chat_id=infoUserDB['_id'], text=str(translations[infoUserDB['languageApp']]['delAddrC']),
-                         reply_markup=keyboardAddress(infoUserDB, addrs, 'delAddr-', False))
+                         reply_markup=keyboardAddress(infoUserDB, addrs, 'delAddr-', False), parse_mode='Markdown')
 
 
 # Message for command /setname
@@ -360,7 +376,8 @@ def message_setname(message):
 
     else:
         bot.send_message(chat_id=infoUserDB['_id'], text=str(translations[infoUserDB['languageApp']]['setnameAddrC']),
-                         reply_markup=keyboardAddress(infoUserDB, addrs, 'setNameAddr-', False))
+                         reply_markup=keyboardAddress(infoUserDB, addrs, 'setNameAddr-', False), parse_mode='Markdown')
+
 
 # Message for command /setaddress
 @bot.message_handler(commands=['setaddress'])
@@ -377,6 +394,43 @@ def message_setname(message):
     else:
         bot.send_message(chat_id=infoUserDB['_id'], text=str(translations[infoUserDB['languageApp']]['setcodeAddrC']),
                          reply_markup=keyboardAddress(infoUserDB, addrs, 'setCodeAddr-', False))
+
+
+# Message for command /enablenotification
+@bot.message_handler(commands=['enablenotification'])
+def message_enablenotification(message):
+    infoUserDB = checkUser(infoUser(message))
+    logger.debug("Search addresses for user: {0}".format(infoUserDB['_id']))
+    addrs = addrCol.find({"idUser": infoUserDB['_id']})
+
+    if addrs.explain()['executionStats']['nReturned'] == 0:
+        logger.info("Found 0 Address User: {0}".format(infoUserDB['_id']))
+        bot.send_message(chat_id=infoUserDB['_id'],
+                         text=u"\u26A0 " + str(translations[infoUserDB['languageApp']]['noneAddr']))
+
+    else:
+        bot.send_message(chat_id=infoUserDB['_id'],
+                         text=str(translations[infoUserDB['languageApp']]['enableNotifications']),
+                         reply_markup=keyboardAddress(infoUserDB, addrs, 'notON-', False), parse_mode='Markdown')
+
+
+# Message for command /disablenotification
+@bot.message_handler(commands=['disablenotification'])
+def message_disablenotification(message):
+    infoUserDB = checkUser(infoUser(message))
+    logger.debug("Search addresses for user: {0}".format(infoUserDB['_id']))
+    addrs = addrCol.find({"idUser": infoUserDB['_id']})
+
+    if addrs.explain()['executionStats']['nReturned'] == 0:
+        logger.info("Found 0 Address User: {0}".format(infoUserDB['_id']))
+        bot.send_message(chat_id=infoUserDB['_id'],
+                         text=u"\u26A0 " + str(translations[infoUserDB['languageApp']]['noneAddr']))
+
+    else:
+        bot.send_message(chat_id=infoUserDB['_id'],
+                         text=str(translations[infoUserDB['languageApp']]['disableNotifications']),
+                         reply_markup=keyboardAddress(infoUserDB, addrs, 'notOFF-', False), parse_mode='Markdown')
+
 
 # -----------------------------
 
@@ -549,6 +603,41 @@ def callback_query(call):
                             {"$set": {"lastMessage.type": "setcodeaddr",
                                       "lastMessage.idMessage": str(call.message.message_id),
                                       "lastMessage.text": addressCode}})
+
+    # Callback notificatios
+    elif re.search("^notAddr-+", call.data):
+        addressCode = str(call.data).replace('notAddr-', '')
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id,
+                              text=translations[infoUserCall['languageApp']]['descNotifications'],
+                              parse_mode='Markdown')
+
+        bot.edit_message_reply_markup(chat_id=call.message.chat.id, message_id=call.message.message_id,
+                                      reply_markup=keyboardNotifications(addressCode))
+
+    # Callabck activate notifications
+    elif re.search("^notON-+", call.data):
+        addressCode = str(call.data).replace('notON-', '')
+        logger.info("Activate notifications for: user -> {0} address ->{1}".format(infoUserCall['_id'], addressCode))
+        addrCol.update_one({"address": addressCode, "idUser": infoUserCall['_id']}, {"$set": {"notifications": True}})
+        messageText = translations[infoUserCall['languageApp']]['statusNotifications']
+        messageText = messageText.replace("<STATUS>", "ON")
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id,
+                              text=messageText, parse_mode='Markdown')
+        bot.edit_message_reply_markup(chat_id=call.message.chat.id, message_id=call.message.message_id,
+                                      reply_markup=keyboardReturnMyAddrs(infoUserCall))
+
+    # Callback desactivate notificationes
+    elif re.search("^notOFF-+", call.data):
+        addressCode = str(call.data).replace('notOFF-', '')
+        logger.info("Desactivate notifications for: user -> {0} address ->{1}".format(infoUserCall['_id'], addressCode))
+        addrCol.update_one({"address": addressCode, "idUser": infoUserCall['_id']}, {"$set": {"notifications": False}})
+        messageText = translations[infoUserCall['languageApp']]['statusNotifications']
+        messageText = messageText.replace("<STATUS>", "OFF")
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id,
+                              text=messageText, parse_mode='Markdown')
+        bot.edit_message_reply_markup(chat_id=call.message.chat.id, message_id=call.message.message_id,
+                                      reply_markup=keyboardReturnMyAddrs(infoUserCall))
+
     else:
         logger.warning("Unidentified callback: {0}".format(call.data))
 
@@ -579,7 +668,8 @@ def message_other(message):
                                                                                                  'text'], message.text))
 
         addrCol.insert_one(
-            {'name': infoUserDB['lastMessage']['text'], "address": message.text, "idUser": infoUserDB['_id']})
+            {'name': infoUserDB['lastMessage']['text'], "address": message.text, "idUser": infoUserDB['_id'],
+             "notifications": False, "statusWorkers": {}})
 
         messageText = str(translations[infoUserDB['languageApp']]['newAddr3'])
         messageText = messageText.replace("<NAMEADDRESS>", infoUserDB['lastMessage']['text'])

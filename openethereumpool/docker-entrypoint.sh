@@ -28,4 +28,6 @@ poolStats = $URL_POOL/api/stats
 addressStats = $URL_POOL/api/accounts/
 EOF
 
+/usr/sbin/crond -b
+
 exec "$@"

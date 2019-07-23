@@ -4,7 +4,9 @@ translations = {
                         "sending these "
                         "commands:\n\n/newaddr - Add new address\n/myaddrs - View all address\n\n*Edit "
                         "Addresses*\n/setname - Change a address's name\n/setaddress - Change the "
-                        "address\n/deleteaddr - Delete a address\n\n*Stats*\n/seestats - View Stats",
+                        "address\n/deleteaddr - Delete a address\n\n*Stats*\n/seestats - View "
+                        "Stats\n\n*Notifications*\n/enablenotification - Enable workers status "
+                        "notifications\n/disablenotification - Disable workers status notifications",
         "newAddr": "Alright, a new address. How are we going to call it? Please choose a name for your address.",
         "newAddr2": "All right!! Now enter the address.",
         "newAddr3": "Done! Congratulations for your new address:\n\nNow you can start checking your statistics, "
@@ -34,7 +36,14 @@ translations = {
         "optEdit": "Select an option:",
         "newNameAddr": "OK. Send me the new name for your address.",
         "newCodeAddr": "OK. Send me the new code for your address.",
-        "addrUpdate": "Your address information has been updated.\n\nName: *<NAMEADDRESS>*\nAddress: *<ADDRESS>*"
+        "addrUpdate": "Your address information has been updated.\n\nName: *<NAMEADDRESS>*\nAddress: *<ADDRESS>*",
+        "changeWorkers": "Change in workers status:\n",
+        "notifications": "Notifications",
+        "descNotifications": "Activating the notification service will receive a message every time there is a change "
+                             "of status in your *Workers*.",
+        "statusNotifications": "Status notifications: *<STATUS>*",
+        "enableNotifications": "Choose the address you want to - *Activate* - notifications:",
+        "disableNotifications": "Choose the address you want to - *Disable* - notifications:"
     },
     "es": {
         "startMessage": "Puedo ayudarte a ver todas tus estadísticas de pool2mine.net\n\nPuedes controlarme "
@@ -42,7 +51,9 @@ translations = {
                         "estos comandos:\n\n/newaddr - Añadir nueva dirección\n/myaddrs - Ver todas las "
                         "direcciones\n\n*Editar Dirección*\n/setname - Cambiar nombre de dirección\n/setaddress - "
                         "Cambiar dirección\n/deleteaddr - Borrar dirección\n\n*Estadísticas*\n/seestats - Ver "
-                        "estadísticas",
+                        "estadísticas\n\n*Notificaciones*\n/enablenotification - Activa las notificaciones del estado "
+                        "de los workers\n/disablenotification - Desactiva las notificaciones del estado de los "
+                        "workers",
         "newAddr": "Muy bien, una nueva dirección. ¿Cómo la vamos a llamar? Por favor, elija un nombre para tu "
                    "dirección.",
         "newAddr2": "Bien!! Ahora introduce la dirección.",
@@ -76,6 +87,13 @@ translations = {
         "newNameAddr": "OK. Enviame el nuevo nombre para tu dirección.",
         "newCodeAddr": "OK. Enviame el nuevo código para tu dirección.",
         "addrUpdate": "La información de tu dirección ha sido actualizada..\n\nName: *<NAMEADDRESS>*\nAddress: "
-                      "*<ADDRESS>*"
+                      "*<ADDRESS>*",
+        "changeWorkers": "Cambio en estado de workers:\n",
+        "notifications": "Notificaciones",
+        "descNotifications": "Activando el servicio de notificaciones recibira un mensaje cada vez que se produzca un "
+                             "cambio de estado en tus *Workers*.",
+        "statusNotifications": "Estado de las notificaciones: *<STATUS>*",
+        "enableNotifications": "Elige la dirección sobre la que quieres - *Activar* - las notificaciones:",
+        "disableNotifications": "Elige la dirección sobre la que quieres - *Desactivar* - las notificaciones:"
     }
 }
