@@ -102,14 +102,17 @@ for address in address:
 
         # Compare status of workers
         for w in lastStatusWorkers:
-            if lastStatusWorkers[w] != statusWorkers[w]:
-                logger.debug("Change worker status {0}: {1} -> {2}".format(w, lastStatusWorkers[w], statusWorkers[w]))
+            try:
+                if lastStatusWorkers[w] != statusWorkers[w]:
+                    logger.debug("Change worker status {0}: {1} -> {2}".format(w, lastStatusWorkers[w], statusWorkers[w]))
 
-                if not statusWorkers[w]:
-                    textMessage2 = (textMessage2 + "   - *{0}* -> " + u"\u2705\n").format(w)
+                    if not statusWorkers[w]:
+                        textMessage2 = (textMessage2 + "   - *{0}* -> " + u"\u2705\n").format(w)
 
-                else:
-                    textMessage2 = (textMessage2 + "   - *{0}* -> " + u"\u274C\n").format(w)
+                    else:
+                        textMessage2 = (textMessage2 + "   - *{0}* -> " + u"\u274C\n").format(w)
+            except:
+                pass
 
         if textMessage != textMessage2:
             bot.send_message(chat_id=idUser, text=str(textMessage2), parse_mode='Markdown')
