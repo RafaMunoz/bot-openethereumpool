@@ -27,5 +27,8 @@ To run this bot using Docker you can use the following command:
     -e "URL_POOL=URL_FOR_YOUR_POOL" \
     rafa93m/bot-openethereumpool
     
+## Donations
+
+**ETH**: 0xF47FB0A777881545ED7b97B289961e78e97Aa760
 
 
