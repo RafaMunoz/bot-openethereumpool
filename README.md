@@ -7,7 +7,7 @@ If you are using [Open Ethereum Pool](https://github.com/sammy007/open-ethereum-
 This Bot is mounted on Docker, so implementing it is very easy. You just need to have a database [MongoDB](https://hub.docker.com/_/mongo) and this container.
 
 ## Environment variables
-A continuación puedes ver las Environment variables necesarias para el funcionamiento de este contenedor.
+Below you can see the Environment variables necessary for the operation of this container.
 
  - **$TELEGRAM_TOKEN** -> Token to access the HTTP API of your bot. 
  
