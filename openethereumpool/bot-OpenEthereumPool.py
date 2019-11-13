@@ -178,20 +178,27 @@ def keyboardAddress(infoUserCall, addresses, prefix, buttonReturn=True):
     else:
         # If it's odd
         if modI == 1:
+            k = 0
             for j in range(int((i - 1) / 2)):
-                markup.add(InlineKeyboardButton(addresses[j]['name'], callback_data=prefix + addresses[j]['address']),
-                           InlineKeyboardButton(addresses[j + 1]['name'],
-                                                callback_data=prefix + addresses[j + 1]['address']))
+                markup.add(InlineKeyboardButton(addresses[k]['name'], callback_data=prefix + addresses[k]['address']),
+                           InlineKeyboardButton(addresses[k + 1]['name'],
+                                                callback_data=prefix + addresses[k + 1]['address']))
+
+                k = k + 2
 
             markup.add(
-                InlineKeyboardButton(addresses[j + 2]['name'], callback_data=prefix + addresses[j + 2]['address']))
+                InlineKeyboardButton(addresses[k]['name'], callback_data=prefix + addresses[k]['address']))
 
         # If it's even
         else:
+            k = 0
             for j in range(int(i / 2)):
-                markup.add(InlineKeyboardButton(addresses[j]['name'], callback_data=prefix + addresses[j]['address']),
-                           InlineKeyboardButton(addresses[j + 1]['name'],
-                                                callback_data=prefix + addresses[j + 1]['address']))
+                markup.add(InlineKeyboardButton(addresses[k]['name'], callback_data=prefix + addresses[k]['address']),
+                           InlineKeyboardButton(addresses[k + 1]['name'],
+                                                callback_data=prefix + addresses[k + 1]['address']))
+
+                k = k + 2
+
 
     # Button to return
     if buttonReturn:
@@ -505,8 +512,13 @@ def callback_query(call):
             messageText = u"\U0001F6A7  *Hashrate:*\n"
             messageText = messageText + "   - Current Hashrate (30m): *{0}*\n".format(currentHashrate)
             messageText = messageText + "   - Hashrate (3h): *{0}*\n\n".format(hashrate)
-            messageText = messageText + u"\U0001F4E6 Blocks Found: *{0}*\n\n".format(
+
+            if 'blocksFound' in responseStats['stats']:
+                messageText = messageText + u"\U0001F4E6 Blocks Found: *{0}*\n\n".format(
                 responseStats['stats']['blocksFound'])
+            else:
+                messageText = messageText + u"\U0001F4E6 Blocks Found: *0*\n\n"
+
             messageText = messageText + u"\U0001F4B6 *Payments:*\n"
             messageText = messageText + "   - Total Payments: *{0}*\n".format(responseStats['paymentsTotal'])
             messageText = messageText + "   - Total Paid: *{0}*\n\n".format(responseStats['stats']['paid'] / 1000000000)
