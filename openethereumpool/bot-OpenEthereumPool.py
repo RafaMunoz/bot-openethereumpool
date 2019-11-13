@@ -521,7 +521,12 @@ def callback_query(call):
 
             messageText = messageText + u"\U0001F4B6 *Payments:*\n"
             messageText = messageText + "   - Total Payments: *{0}*\n".format(responseStats['paymentsTotal'])
-            messageText = messageText + "   - Total Paid: *{0}*\n\n".format(responseStats['stats']['paid'] / 1000000000)
+
+            if 'paid' in responseStats['stats']:
+                messageText = messageText + "   - Total Paid: *{0}*\n\n".format(responseStats['stats']['paid'] / 1000000000)
+            else:
+                messageText = messageText + "   - Total Paid: *-*\n\n"
+                
             messageText = messageText + u"\u2699 *Workers:*\n"
             messageText = messageText + "   - Online: *{0}*\n".format(responseStats['workersOnline'])
             messageText = messageText + "   - Offline: *{0}*\n".format(responseStats['workersOffline'])
