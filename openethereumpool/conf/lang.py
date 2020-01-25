@@ -1,6 +1,6 @@
 translations = {
     "en": {
-        "startMessage": "I can help you see all your pool2mine.net statistics\n\nYou can control me by "
+        "startMessage": "I can help you see all your pool statistics.\n\nYou can control me by "
                         "sending these "
                         "commands:\n\n/newaddr - Add new address\n/myaddrs - View all address\n\n*Edit "
                         "Addresses*\n/setname - Change a address's name\n/setaddress - Change the "
@@ -16,7 +16,7 @@ translations = {
         "setcodeAddrC": "Choose the address to which you want to change the code.",
         "stats1": "Where do you want to consult the statistics?",
         "statsaddr": "My Addresses",
-        "statsp2m": "Pool2Mine",
+        "statsp2m": "Pool",
         "statsReturn": "<< Back to Stats",
         "noneAddr": "You have not added an address yet.\nYou can use the /newaddr command to add a new address.",
         "selectAddr": "Choose a address from the list below:",
@@ -46,7 +46,7 @@ translations = {
         "disableNotifications": "Choose the address you want to - *Disable* - notifications:"
     },
     "es": {
-        "startMessage": "Puedo ayudarte a ver todas tus estadísticas de pool2mine.net\n\nPuedes controlarme "
+        "startMessage": "Puedo ayudarte a ver todas tus estadísticas de tu pool.\n\nPuedes controlarme "
                         "enviando "
                         "estos comandos:\n\n/newaddr - Añadir nueva dirección\n/myaddrs - Ver todas las "
                         "direcciones\n\n*Editar Dirección*\n/setname - Cambiar nombre de dirección\n/setaddress - "
@@ -65,7 +65,7 @@ translations = {
         "setcodeAddrC": "Elige la dirección a la que quieres cambiar el código.",
         "stats1": "¿De donde quieres consultar las estadísticas?",
         "statsaddr": "Mis Direcciones",
-        "statsp2m": "Pool2Mine",
+        "statsp2m": "Pool",
         "statsReturn": "<< Volver a Estadísticas",
         "noneAddr": "Todavia no has añadido ninguna dirección.\nPuedes utilizar el comando /newaddr para añadir una "
                     "dirección nueva. ",
