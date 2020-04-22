@@ -14,6 +14,7 @@ Below you can see the Environment variables necessary for the operation of this 
  - **$URI_MONGODB**	-> Connection URI with your MongoDB database. 
  
 > For example: mongodb://user:pass@192.168.1.2
+> You should never use 127.0.0.1 or localhost.
 
  - **$URL_POOL** -> URL of your Pool and where the bot will be able to consult the statistics.
 
