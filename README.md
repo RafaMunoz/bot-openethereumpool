@@ -4,7 +4,7 @@ If you are using [Open Ethereum Pool](https://github.com/sammy007/open-ethereum-
 
 # Get Started
 
-This Bot is mounted on Docker, so implementing it is very easy. You just need to have a database [MongoDB](https://hub.docker.com/_/mongo) and this container.
+This Bot is mounted on Docker, so implementing it is very easy. You just need to have a database [MongoDB 4.2.6-bionic](https://hub.docker.com/_/mongo) and this container.
 
 ## Environment variables
 A continuación puedes ver las Environment variables necesarias para el funcionamiento de este contenedor.
