@@ -445,7 +445,7 @@ def message_enablenotification(message):
     infoUserDB = checkUser(infoUser(message))
 
     userColl.update_one({"idUser": infoUserDB['_id']},{"$set":{"notification_newblock":True}})
-    bot.send_message(chat_id=infoUserDB['_id'],text=str(translations[infoUserDB['languageApp']]['disablenewblock']), parse_mode='Markdown')
+    bot.send_message(chat_id=infoUserDB['_id'],text=str(translations[infoUserDB['languageApp']]['enablenewblock']), parse_mode='Markdown')
 
     logger.debug("enablenewblock: {0}".format(infoUserDB['_id']))
 
@@ -457,7 +457,7 @@ def message_disablenotification(message):
     logger.debug("Search info user: {0}".format(infoUserDB['_id']))
 
     userColl.update_one({"idUser": infoUserDB['_id']}, {"$set": {"notification_newblock": False}})
-    bot.send_message(chat_id=infoUserDB['_id'],text=str(translations[infoUserDB['languageApp']]['enablenewblock']), parse_mode='Markdown')
+    bot.send_message(chat_id=infoUserDB['_id'],text=str(translations[infoUserDB['languageApp']]['disablenewblock']), parse_mode='Markdown')
 
     logger.debug("disablenewblock: {0}".format(infoUserDB['_id']))
 
