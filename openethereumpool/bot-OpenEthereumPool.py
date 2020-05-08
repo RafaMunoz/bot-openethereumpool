@@ -165,7 +165,7 @@ def keyboardReturnMyAddrs(infoUserCall):
 # Keyboard to list address
 def keyboardAddress(infoUserCall, addresses, prefix, buttonReturn=True):
     # We get number of addresses and if it's even or odd
-    i = addresses.count()
+    i = len(addresses)
     j = 0
     modI = i % 2
 
@@ -438,6 +438,28 @@ def message_disablenotification(message):
                          text=str(translations[infoUserDB['languageApp']]['disableNotifications']),
                          reply_markup=keyboardAddress(infoUserDB, addrs, 'notOFF-', False), parse_mode='Markdown')
 
+
+# Message for command /enablenewblock
+@bot.message_handler(commands=['enablenewblock'])
+def message_enablenotification(message):
+    infoUserDB = checkUser(infoUser(message))
+
+    userColl.update_one({"idUser": infoUserDB['_id']},{"$set":{"notification_newblock":True}})
+    bot.send_message(chat_id=infoUserDB['_id'],text=str(translations[infoUserDB['languageApp']]['disablenewblock']), parse_mode='Markdown')
+
+    logger.debug("enablenewblock: {0}".format(infoUserDB['_id']))
+
+
+# Message for command /disablenewblock
+@bot.message_handler(commands=['disablenewblock'])
+def message_disablenotification(message):
+    infoUserDB = checkUser(infoUser(message))
+    logger.debug("Search info user: {0}".format(infoUserDB['_id']))
+
+    userColl.update_one({"idUser": infoUserDB['_id']}, {"$set": {"notification_newblock": False}})
+    bot.send_message(chat_id=infoUserDB['_id'],text=str(translations[infoUserDB['languageApp']]['enablenewblock']), parse_mode='Markdown')
+
+    logger.debug("disablenewblock: {0}".format(infoUserDB['_id']))
 
 # -----------------------------
 

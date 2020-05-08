@@ -1,5 +1,5 @@
 #!/bin/sh
-
+set -e
 
 if [[ -z $TELEGRAM_TOKEN ]]; then
 	echo "A TELEGRAM_TOKEN is required to run this container."

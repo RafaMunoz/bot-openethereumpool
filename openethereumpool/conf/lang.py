@@ -1,12 +1,12 @@
 translations = {
     "en": {
-        "startMessage": "I can help you see all your pool statistics.\n\nYou can control me by "
+        "startMessage": "I can help you see all your pool statistics\n\nYou can control me by "
                         "sending these "
                         "commands:\n\n/newaddr - Add new address\n/myaddrs - View all address\n\n*Edit "
                         "Addresses*\n/setname - Change a address's name\n/setaddress - Change the "
                         "address\n/deleteaddr - Delete a address\n\n*Stats*\n/seestats - View "
                         "Stats\n\n*Notifications*\n/enablenotification - Enable workers status "
-                        "notifications\n/disablenotification - Disable workers status notifications",
+                        "notifications\n/disablenotification - Disable workers status notifications\n/enablenewblock - Turn on notification of new found block\n/disablenewblock - Turn off notification of new found block",
         "newAddr": "Alright, a new address. How are we going to call it? Please choose a name for your address.",
         "newAddr2": "All right!! Now enter the address.",
         "newAddr3": "Done! Congratulations for your new address:\n\nNow you can start checking your statistics, "
@@ -43,17 +43,19 @@ translations = {
                              "of status in your *Workers*.",
         "statusNotifications": "Status notifications: *<STATUS>*",
         "enableNotifications": "Choose the address you want to - *Activate* - notifications:",
-        "disableNotifications": "Choose the address you want to - *Disable* - notifications:"
+        "disableNotifications": "Choose the address you want to - *Disable* - notifications:",
+        "enablenewblock": "Perfect, now you will receive a notification every time a new block is found!!",
+        "disablenewblock": "From now on you will stop receiving notifications every time a new block is found"
     },
     "es": {
-        "startMessage": "Puedo ayudarte a ver todas tus estadísticas de tu pool.\n\nPuedes controlarme "
+        "startMessage": "Puedo ayudarte a ver todas las estadísticas de tu pool.\n\nPuedes controlarme "
                         "enviando "
                         "estos comandos:\n\n/newaddr - Añadir nueva dirección\n/myaddrs - Ver todas las "
                         "direcciones\n\n*Editar Dirección*\n/setname - Cambiar nombre de dirección\n/setaddress - "
                         "Cambiar dirección\n/deleteaddr - Borrar dirección\n\n*Estadísticas*\n/seestats - Ver "
                         "estadísticas\n\n*Notificaciones*\n/enablenotification - Activa las notificaciones del estado "
                         "de los workers\n/disablenotification - Desactiva las notificaciones del estado de los "
-                        "workers",
+                        "workers\n/enablenewblock - Activa la notificación de nuevo bloque encontrado\n/disablenewblock - Desactiva la notificación de nuevo bloque encontrado",
         "newAddr": "Muy bien, una nueva dirección. ¿Cómo la vamos a llamar? Por favor, elija un nombre para tu "
                    "dirección.",
         "newAddr2": "Bien!! Ahora introduce la dirección.",
@@ -94,6 +96,8 @@ translations = {
                              "cambio de estado en tus *Workers*.",
         "statusNotifications": "Estado de las notificaciones: *<STATUS>*",
         "enableNotifications": "Elige la dirección sobre la que quieres - *Activar* - las notificaciones:",
-        "disableNotifications": "Elige la dirección sobre la que quieres - *Desactivar* - las notificaciones:"
+        "disableNotifications": "Elige la dirección sobre la que quieres - *Desactivar* - las notificaciones:",
+        "enablenewblock": "Perfecto, ahora recibiras una notificación cada vez que se encuentre un nuevo bloque!!",
+        "disablenewblock": "A partir de ahora dejarás de recibir notificaciones cada vez que se encuentre un nuevo bloque"
     }
 }

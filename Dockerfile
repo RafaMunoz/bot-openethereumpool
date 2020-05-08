@@ -11,6 +11,7 @@ COPY openethereumpool /opt/openethereumpool
 RUN chmod -R 644 /opt/openethereumpool
 
 RUN echo "*    *    *    *    *    python3 /opt/openethereumpool/checkWorkers.py" >> /etc/crontabs/root
+RUN echo "*    *    *    *    *    python3 /opt/openethereumpool/checkNewBlock.py" >> /etc/crontabs/root
 
 WORKDIR /opt/openethereumpool
 
