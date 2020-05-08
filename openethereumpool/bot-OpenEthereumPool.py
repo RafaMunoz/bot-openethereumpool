@@ -473,13 +473,20 @@ def callback_query(call):
     # Send stats Pool
     if call.data == "statsp2m":
         response = requestAPI(POOLSTATS)
+
+        timestamp = response["stats"]["lastBlockFound"]
+        date = datetime.fromtimestamp(timestamp)
+        now = datetime.now()
+        resta = now - date
+        hours = int((resta.seconds / 60) / 60)
+
         logger.debug("Response API: {0}".format(response))
         hashrate = str(round(response['hashrate'] / 1000000000, 2)) + " GH"
         networkDificult = str(round(int(response['nodes'][0]['difficulty']) / 1000000000000000, 3)) + " P"
         networkHashrate = str(round(int(response['nodes'][0]['lastBeat']) / 10000000, 2)) + " TH"
         messageText = u"\U0001F465 Miners Online: *{0}*\n\n".format(response['minersTotal'])
         messageText = messageText + u"\U0001F6A7 Pool Hash Rate: *{0}*\n\n".format(hashrate)
-        messageText = messageText + u"\U0001F552 Last Block Found: *{0} hours ago*\n\n".format(response['maturedTotal'])
+        messageText = messageText + u"\U0001F552 Last Block Found: *{0} hours ago*\n\n".format(hours)
         messageText = messageText + u"\U0001F513 Network Difficulty: *{0}*\n\n".format(networkDificult)
         messageText = messageText + u"\u26A1 Network Hash Rate: *{0}*\n\n".format(networkHashrate)
         messageText = messageText + u"\U0001F4F6 Blockchain Height: *{0}*".format(
