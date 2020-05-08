@@ -166,7 +166,7 @@ def keyboardReturnMyAddrs(infoUserCall):
 # Keyboard to list address
 def keyboardAddress(infoUserCall, addresses, prefix, buttonReturn=True):
     # We get number of addresses and if it's even or odd
-    i = addresses.count(True)
+    i = addresses.count_documents
     j = 0
     modI = i % 2
 
