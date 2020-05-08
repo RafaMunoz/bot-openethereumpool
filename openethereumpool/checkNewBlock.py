@@ -4,7 +4,7 @@
 import logging
 import configparser
 import telebot
-from pymongo import MongoClient
+import pymongo
 import urllib3
 import json
 import os
@@ -66,8 +66,7 @@ logger.info("--- Start CheckNewBlock ---")
 bot = telebot.TeleBot(TOKEN)
 
 # Connect to DB
-connectDB = MongoClient(MONGOCONNECTION)
-db = connectDB.OpenEthereumPool
+db = pymongo.MongoClient(MONGOCONNECTION).get_database()
 usersCol = db.Users
 blocksCol = db.Blocks
 

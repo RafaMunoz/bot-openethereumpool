@@ -1,4 +1,4 @@
-# Telegram Bot - Open Ethereum Pool
+﻿# **Telegram Bot - Open Ethereum Pool**
 
 If you are using [Open Ethereum Pool](https://github.com/sammy007/open-ethereum-pool), you may want to implement this Telegram Bot to see the statistics of your Pool and your Wallets at all times.
 
@@ -7,14 +7,13 @@ If you are using [Open Ethereum Pool](https://github.com/sammy007/open-ethereum-
 This Bot is mounted on Docker, so implementing it is very easy. You just need to have a database [MongoDB](https://hub.docker.com/_/mongo) and this container.
 
 ## Environment variables
-Below you can see the Environment variables necessary for the operation of this container.
+A continuación puedes ver las Environment variables necesarias para el funcionamiento de este contenedor.
 
  - **$TELEGRAM_TOKEN** -> Token to access the HTTP API of your bot. 
  
  - **$URI_MONGODB**	-> Connection URI with your MongoDB database. 
  
-> For example: mongodb://user:pass@192.168.1.2
-> You should never use 127.0.0.1 or localhost.
+> For example: mongodb://user:pass@192.168.1.2/OpenEthereumPool
 
  - **$URL_POOL** -> URL of your Pool and where the bot will be able to consult the statistics.
 

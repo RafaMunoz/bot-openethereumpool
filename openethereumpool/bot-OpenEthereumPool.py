@@ -10,7 +10,8 @@ from datetime import datetime
 import telebot
 import urllib3
 from conf.lang import translations
-from pymongo import MongoClient
+from datetime import datetime, timedelta
+import pymongo
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 # Go to directory
@@ -296,8 +297,7 @@ logger.info("--- Start the bot OpenEthereumPool ---")
 bot = telebot.TeleBot(TOKEN)
 
 # Connect to DB
-connectDB = MongoClient(MONGOCONNECTION)
-db = connectDB.OpenEthereumPool
+db = pymongo.MongoClient(MONGOCONNECTION).get_database()
 userColl = db.Users
 addrCol = db.Addresses
 
