@@ -141,3 +141,6 @@ if res["immature"] is not None or total_matured > total_matured_db:
             # Save block in db
             blocksCol.insert_one(block)
             logger.debug("Save block in db: {0}".format(block))
+
+    blocksCol.update_one({'_id': "maturedTotal"},{"$set": {"maturedTotal": total_matured}}, upsert=True)
+            
