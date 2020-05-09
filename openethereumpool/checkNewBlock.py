@@ -133,10 +133,10 @@ if res["immature"] is not None or total_matured > total_matured_db:
                             variance, reward, hash)
 
                     bot.send_message(chat_id=user["idUser"], text=message, parse_mode='Markdown')
-                    logger.debug("Send message to user: {0}".format(user["idUser"]))
+                    logger.debug("Send message to user: {0}".format(user["_id"]))
 
                 except:
-                    logger.error("Error send message to user: {0}".format(user["idUser"]))
+                    logger.error("Error send message to user: {0}".format(user["_id"]))
 
             # Save block in db
             blocksCol.insert_one(block)
