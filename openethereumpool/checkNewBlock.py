@@ -132,7 +132,7 @@ if res["immature"] is not None or total_matured > total_matured_db:
                         message = "🌀 *New Uncle found!*\n- Variance: `{0}%`\n- Reward: `{1}`\n- Block Hash: `{2}`".format(
                             variance, reward, hash)
 
-                    bot.send_message(chat_id=user["idUser"], text=message, parse_mode='Markdown')
+                    bot.send_message(chat_id=user["_id"], text=message, parse_mode='Markdown')
                     logger.debug("Send message to user: {0}".format(user["_id"]))
 
                 except:
