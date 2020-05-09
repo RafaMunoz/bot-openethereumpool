@@ -77,9 +77,31 @@ http = urllib3.PoolManager()
 # Search stats for blocks
 res = requestAPI(BLOCKSSTATS)
 
-if res["immature"] is not None:
+# Check mature total blocks first time save in db
+total_matured = int(res["maturedTotal"])
+tmdb = blocksCol.find_one({'_id': "maturedTotal"})
 
-    for block in res["immature"]:
+if tmdb != None:
+    total_matured_db = tmdb["maturedTotal"]
+else:
+    logger.debug("First time save maturedblock in db")
+
+    total_matured_db = total_matured
+    blocksCol.insert_one({'_id': "maturedTotal", "maturedTotal": total_matured})
+
+    for block_matured in res["matured"]:
+        blocksCol.insert_one(block_matured)
+
+
+if res["immature"] is not None or total_matured > total_matured_db:
+
+    if res["immature"] is not None:
+        list_block = res["immature"]
+
+    else:
+        list_block = res["matured"]
+
+    for block in list_block:
 
         hash = block["hash"]
         timestamp = block["timestamp"]

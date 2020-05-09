@@ -26,6 +26,7 @@ fileLog = False
 [API]
 poolStats = $URL_POOL/api/stats
 addressStats = $URL_POOL/api/accounts/
+blocksStats = $URL_POOL/api/blocks
 EOF
 
 /usr/sbin/crond -b
