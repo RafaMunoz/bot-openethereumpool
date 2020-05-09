@@ -95,7 +95,7 @@ if res["immature"] is not None:
         new_block = blocksCol.find_one({'hash': block["hash"]})
         logger.debug("Search block in db: {0}".format(block))
 
-        if new_block != None:
+        if new_block == None:
 
             # Send notification to users with notification = true
             users = usersCol.find(
