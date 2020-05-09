@@ -484,7 +484,7 @@ def callback_query(call):
         if days >= 1:
             text_lastfound = "{0} days".format(days)
         else:
-            text_lastfound = "{0} hours ago".format(days)
+            text_lastfound = "{0} hours ago".format(hours)
 
         logger.debug("Response API: {0}".format(response))
         hashrate = str(round(response['hashrate'] / 1000000000, 2)) + " GH"
