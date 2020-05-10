@@ -29,6 +29,13 @@ To run this bot using Docker you can use the following command:
     -e "URL_POOL=URL_FOR_YOUR_POOL" \
     rafa93m/bot-openethereumpool
     
+## We host your bot
+If you are not very familiar with these systems or do not feel like setting up your own bot, we can host it for you.
+
+In my profile is the email with which you can get in contact, you do not have to pay anything, it is totally **FREE**.
+If you want you can make a small donation of what you want to help us maintain the servers.
+
+
 ## Donations
 
 **ETH**: 0xF47FB0A777881545ED7b97B289961e78e97Aa760
