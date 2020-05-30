@@ -1,4 +1,4 @@
-﻿# **Telegram Bot - Open Ethereum Pool**
+# Telegram Bot - Open Ethereum Pool
 
 If you are using [Open Ethereum Pool](https://github.com/sammy007/open-ethereum-pool), you may want to implement this Telegram Bot to see the statistics of your Pool and your Wallets at all times.
 
