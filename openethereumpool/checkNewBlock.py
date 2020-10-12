@@ -37,17 +37,18 @@ LOG = conf['BASIC']['pathLog']
 TOKEN = conf['BASIC']['tokenBot']
 MONGOCONNECTION = conf['BASIC']['connectMongoDB']
 BLOCKSSTATS = conf['API']['blocksStats']
-FILELOG = bool(conf['BASIC']['fileLog'])
+FILELOG = conf['BASIC']['fileLog']
+
 # -------------------------------------
 # ---------- Logging ----------
 if not os.path.exists('log'):
     os.makedirs('log')
 
-logger = logging.getLogger('checkWorkers')
+logger = logging.getLogger('checkNewBlock')
 logger.setLevel(logging.DEBUG)
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
-if FILELOG:
+if FILELOG == "enabled":
     fh = logging.FileHandler(LOG)
     fh.setLevel(logging.DEBUG)
     fh.setFormatter(formatter)
@@ -126,10 +127,10 @@ if res["immature"] is not None or total_matured > total_matured_db:
             for user in users:
                 try:
                     if uncle == False:
-                        message = "🌀 *New Block found!*\n- Variance: `{0}%`\n- Reward: `{1}`\n- Block Hash: `{2}`".format(
+                        message = "🌀 *New Block found!*\n\n*Variance*: `{0}%`\n*Reward*: `{1}`\n*Block Hash*: `{2}`".format(
                             variance, reward, hash)
                     else:
-                        message = "🌀 *New Uncle found!*\n- Variance: `{0}%`\n- Reward: `{1}`\n- Block Hash: `{2}`".format(
+                        message = "🌀 *New Uncle found!*\n\n*Variance*: `{0}%`\n*Reward*: `{1}`\n*Block Hash*: `{2}`".format(
                             variance, reward, hash)
 
                     bot.send_message(chat_id=user["_id"], text=message, parse_mode='Markdown')

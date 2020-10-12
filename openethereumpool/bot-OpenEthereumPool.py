@@ -27,6 +27,7 @@ def thousandSep(number):
 # Request to API data
 def requestAPI(argUrl):
     try:
+        logger.debug(argUrl)
         response = http.request('GET', argUrl)
         if response.status != 200:
             data_json = {"ok": False, "error_code": response.status, "description": response.data.decode('utf-8')}
@@ -166,7 +167,7 @@ def keyboardReturnMyAddrs(infoUserCall):
 # Keyboard to list address
 def keyboardAddress(infoUserCall, addresses, prefix, buttonReturn=True):
     # We get number of addresses and if it's even or odd
-    i = addresses.count()
+    i = addrCol.count_documents({"idUser": infoUserCall['_id']})
     j = 0
     modI = i % 2
 
@@ -269,7 +270,7 @@ TOKEN = conf['BASIC']['tokenBot']
 MONGOCONNECTION = conf['BASIC']['connectMongoDB']
 POOLSTATS = conf['API']['poolStats']
 ADDRESSSTATS = conf['API']['addressStats']
-FILELOG = bool(conf['BASIC']['fileLog'])
+FILELOG = conf['BASIC']['fileLog']
 # -------------------------------------
 # ---------- Logging ----------
 if not os.path.exists('log'):
@@ -279,7 +280,7 @@ logger = logging.getLogger('OpenEthereumPool')
 logger.setLevel(logging.DEBUG)
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
-if FILELOG:
+if FILELOG == "enabled":
     fh = logging.FileHandler(LOG)
     fh.setLevel(logging.DEBUG)
     fh.setFormatter(formatter)
@@ -403,9 +404,9 @@ def message_setname(message):
                          reply_markup=keyboardAddress(infoUserDB, addrs, 'setCodeAddr-', False))
 
 
-# Message for command /enablenotification
-@bot.message_handler(commands=['enablenotification'])
-def message_enablenotification(message):
+# Message for command /enableworkers
+@bot.message_handler(commands=['enableworkers'])
+def message_enableworkers(message):
     infoUserDB = checkUser(infoUser(message))
     logger.debug("Search addresses for user: {0}".format(infoUserDB['_id']))
     addrs = addrCol.find({"idUser": infoUserDB['_id']})
@@ -417,13 +418,13 @@ def message_enablenotification(message):
 
     else:
         bot.send_message(chat_id=infoUserDB['_id'],
-                         text=str(translations[infoUserDB['languageApp']]['enableNotifications']),
+                         text=str(translations[infoUserDB['languageApp']]['enableWorkers']),
                          reply_markup=keyboardAddress(infoUserDB, addrs, 'notON-', False), parse_mode='Markdown')
 
 
-# Message for command /disablenotification
-@bot.message_handler(commands=['disablenotification'])
-def message_disablenotification(message):
+# Message for command /disableworkers
+@bot.message_handler(commands=['disableworkers'])
+def message_disableworkers(message):
     infoUserDB = checkUser(infoUser(message))
     logger.debug("Search addresses for user: {0}".format(infoUserDB['_id']))
     addrs = addrCol.find({"idUser": infoUserDB['_id']})
@@ -435,13 +436,13 @@ def message_disablenotification(message):
 
     else:
         bot.send_message(chat_id=infoUserDB['_id'],
-                         text=str(translations[infoUserDB['languageApp']]['disableNotifications']),
+                         text=str(translations[infoUserDB['languageApp']]['disableWorkers']),
                          reply_markup=keyboardAddress(infoUserDB, addrs, 'notOFF-', False), parse_mode='Markdown')
 
 
 # Message for command /enablenewblock
 @bot.message_handler(commands=['enablenewblock'])
-def message_enablenotification(message):
+def message_enablenewblock(message):
     infoUserDB = checkUser(infoUser(message))
 
     userColl.update_one({"_id": infoUserDB['_id']},{"$set":{"notification_newblock":True}})
@@ -452,7 +453,7 @@ def message_enablenotification(message):
 
 # Message for command /disablenewblock
 @bot.message_handler(commands=['disablenewblock'])
-def message_disablenotification(message):
+def message_disablenewblock(message):
     infoUserDB = checkUser(infoUser(message))
     logger.debug("Search info user: {0}".format(infoUserDB['_id']))
 
@@ -461,6 +462,27 @@ def message_disablenotification(message):
 
     logger.debug("disablenewblock: {0}".format(infoUserDB['_id']))
 
+# Message for command /enablenewpayments
+@bot.message_handler(commands=['enablenewpayments'])
+def message_enablenewblock(message):
+    infoUserDB = checkUser(infoUser(message))
+
+    userColl.update_one({"_id": infoUserDB['_id']},{"$set":{"notification_payments":True}})
+    bot.send_message(chat_id=infoUserDB['_id'],text=str(translations[infoUserDB['languageApp']]['enablepayments']), parse_mode='Markdown')
+
+    logger.debug("enablenewpayments: {0}".format(infoUserDB['_id']))
+
+
+# Message for command /disablenewpayments
+@bot.message_handler(commands=['disablenewpayments'])
+def message_disablenewblock(message):
+    infoUserDB = checkUser(infoUser(message))
+    logger.debug("Search info user: {0}".format(infoUserDB['_id']))
+
+    userColl.update_one({"_id": infoUserDB['_id']}, {"$set": {"notification_payments": False}})
+    bot.send_message(chat_id=infoUserDB['_id'],text=str(translations[infoUserDB['languageApp']]['disablepayments']), parse_mode='Markdown')
+
+    logger.debug("disablenewpayments: {0}".format(infoUserDB['_id']))
 # -----------------------------
 
 # ---------- Callbacks ----------

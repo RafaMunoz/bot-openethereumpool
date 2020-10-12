@@ -2,11 +2,15 @@ translations = {
     "en": {
         "startMessage": "I can help you see all your pool statistics\n\nYou can control me by "
                         "sending these "
-                        "commands:\n\n/newaddr - Add new address\n/myaddrs - View all address\n\n*Edit "
+                        "commands:\n\n/newaddr - Add new address\n/myaddrs - View all address\n\n✏ *Edit "
                         "Addresses*\n/setname - Change a address's name\n/setaddress - Change the "
-                        "address\n/deleteaddr - Delete a address\n\n*Stats*\n/seestats - View "
-                        "Stats\n\n*Notifications*\n/enablenotification - Enable workers status "
-                        "notifications\n/disablenotification - Disable workers status notifications\n/enablenewblock - Turn on notification of new found block\n/disablenewblock - Turn off notification of new found block",
+                        "address\n/deleteaddr - Delete a address\n\n📈 *Stats*\n/seestats - View "
+                        "Stats\n\n📢 *Notifications*\n/enableworkers - Enable workers status "
+                        "notifications\n/disableworkers - Disable workers status notifications\n"
+                        "/enablenewblock - Turn on notification of new found block\n"
+                        "/disablenewblock - Turn off notification of new found block\n/enablenewpayments - "
+                        "Turn on notification of new payment\n/disablenewpayments - Turn off notification of "
+                        "new payment",
         "newAddr": "Alright, a new address. How are we going to call it? Please choose a name for your address.",
         "newAddr2": "All right!! Now enter the address.",
         "newAddr3": "Done! Congratulations for your new address:\n\nNow you can start checking your statistics, "
@@ -42,20 +46,25 @@ translations = {
         "descNotifications": "Activating the notification service will receive a message every time there is a change "
                              "of status in your *Workers*.",
         "statusNotifications": "Status notifications: *<STATUS>*",
-        "enableNotifications": "Choose the address you want to - *Activate* - notifications:",
-        "disableNotifications": "Choose the address you want to - *Disable* - notifications:",
+        "enableWorkers": "Choose the address you want to - *Activate* - notifications:",
+        "disableWorkers": "Choose the address you want to - *Disable* - notifications:",
         "enablenewblock": "Perfect, now you will receive a notification every time a new block is found!!",
-        "disablenewblock": "From now on you will stop receiving notifications every time a new block is found"
+        "disablenewblock": "From now on you will stop receiving notifications every time a new block is found",
+        "enablepayments": "Perfect, now you will receive a notification every time you receive a payment!!",
+        "disablepayments": "From now on you will stop receiving notifications every time you receive a payment"
     },
     "es": {
         "startMessage": "Puedo ayudarte a ver todas las estadísticas de tu pool.\n\nPuedes controlarme "
                         "enviando "
                         "estos comandos:\n\n/newaddr - Añadir nueva dirección\n/myaddrs - Ver todas las "
-                        "direcciones\n\n*Editar Dirección*\n/setname - Cambiar nombre de dirección\n/setaddress - "
-                        "Cambiar dirección\n/deleteaddr - Borrar dirección\n\n*Estadísticas*\n/seestats - Ver "
-                        "estadísticas\n\n*Notificaciones*\n/enablenotification - Activa las notificaciones del estado "
-                        "de los workers\n/disablenotification - Desactiva las notificaciones del estado de los "
-                        "workers\n/enablenewblock - Activa la notificación de nuevo bloque encontrado\n/disablenewblock - Desactiva la notificación de nuevo bloque encontrado",
+                        "direcciones\n\n✏ *Editar Dirección*\n/setname - Cambiar nombre de dirección\n/setaddress - "
+                        "Cambiar dirección\n/deleteaddr - Borrar dirección\n\n📈 *Estadísticas*\n/seestats - Ver "
+                        "estadísticas\n\n📢 *Notificaciones*\n/enableworkers - Activa las notificaciones del estado "
+                        "de los workers\n/disableworkers - Desactiva las notificaciones del estado de los "
+                        "workers\n/enablenewblock - Activa la notificación de nuevo bloque encontrado\n"
+                        "/disablenewblock - Desactiva la notificación de nuevo bloque encontrado\n"
+                        "/enablenewpayments - Activa la notificación de nuevo pago\n/disablenewpayments - Desactiva "
+                        "la notificación de nuevo pago",
         "newAddr": "Muy bien, una nueva dirección. ¿Cómo la vamos a llamar? Por favor, elija un nombre para tu "
                    "dirección.",
         "newAddr2": "Bien!! Ahora introduce la dirección.",
@@ -95,9 +104,11 @@ translations = {
         "descNotifications": "Activando el servicio de notificaciones recibira un mensaje cada vez que se produzca un "
                              "cambio de estado en tus *Workers*.",
         "statusNotifications": "Estado de las notificaciones: *<STATUS>*",
-        "enableNotifications": "Elige la dirección sobre la que quieres - *Activar* - las notificaciones:",
-        "disableNotifications": "Elige la dirección sobre la que quieres - *Desactivar* - las notificaciones:",
+        "enableWorkers": "Elige la dirección sobre la que quieres - *Activar* - las notificaciones:",
+        "disableWorkers": "Elige la dirección sobre la que quieres - *Desactivar* - las notificaciones:",
         "enablenewblock": "Perfecto, ahora recibiras una notificación cada vez que se encuentre un nuevo bloque!!",
-        "disablenewblock": "A partir de ahora dejarás de recibir notificaciones cada vez que se encuentre un nuevo bloque"
+        "disablenewblock": "A partir de ahora dejarás de recibir notificaciones cada vez que se encuentre un nuevo bloque",
+        "enablepayments": "Perfecto, ahora recibiras una notificación cada vez que recibas un pago!!",
+        "disablepayments": "A partir de ahora dejarás de recibir notificaciones cada vez que recibas un pago"
     }
 }

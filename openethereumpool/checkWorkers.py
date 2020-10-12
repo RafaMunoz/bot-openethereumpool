@@ -38,7 +38,7 @@ TOKEN = conf['BASIC']['tokenBot']
 MONGOCONNECTION = conf['BASIC']['connectMongoDB']
 POOLSTATS = conf['API']['poolStats']
 ADDRESSSTATS = conf['API']['addressStats']
-FILELOG = bool(conf['BASIC']['fileLog'])
+FILELOG = conf['BASIC']['fileLog']
 # -------------------------------------
 # ---------- Logging ----------
 if not os.path.exists('log'):
@@ -48,7 +48,7 @@ logger = logging.getLogger('checkWorkers')
 logger.setLevel(logging.DEBUG)
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
-if FILELOG:
+if FILELOG == "enabled":
     fh = logging.FileHandler(LOG)
     fh.setLevel(logging.DEBUG)
     fh.setFormatter(formatter)

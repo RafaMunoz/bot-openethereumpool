@@ -12,9 +12,10 @@ RUN chmod -R 644 /opt/openethereumpool
 
 RUN echo "*    *    *    *    *    python3 /opt/openethereumpool/checkWorkers.py" >> /etc/crontabs/root
 RUN echo "*    *    *    *    *    python3 /opt/openethereumpool/checkNewBlock.py" >> /etc/crontabs/root
+RUN echo "*    *    *    *    *    python3 /opt/openethereumpool/checkPayments.py" >> /etc/crontabs/root
 
 WORKDIR /opt/openethereumpool
 
-ENTRYPOINT ["/bin/sh","/opt/openethereumpool/docker-entrypoint.sh"]
+ENTRYPOINT ["/bin/sh", "/opt/openethereumpool/docker-entrypoint.sh"]
 
 CMD ["python3","/opt/openethereumpool/bot-OpenEthereumPool.py"]
