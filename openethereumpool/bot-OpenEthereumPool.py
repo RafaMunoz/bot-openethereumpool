@@ -24,6 +24,17 @@ def thousandSep(number):
     return f'{int(number):,}'
 
 
+# Automatic labels for hashrate
+def format_hashrate(hashrate, redondeo = 2):
+    hashrate = int(hashrate)
+    i = 0
+    units = ['H', 'KH', 'MH', 'GH', 'TH', 'PH', 'EH', 'ZH']
+    while (hashrate > 1000):
+        hashrate = hashrate / 1000
+        i = i + 1
+    return "{0} {1}".format(round(hashrate,redondeo), units[i])
+
+
 # Request to API data
 def requestAPI(argUrl):
     try:
@@ -495,6 +506,7 @@ def callback_query(call):
     # Send stats Pool
     if call.data == "statsp2m":
         response = requestAPI(POOLSTATS)
+        response_2 = requestAPI("https://etherchain.org/index/data")
 
         timestamp = response["stats"]["lastBlockFound"]
         date = datetime.fromtimestamp(timestamp)
@@ -509,13 +521,14 @@ def callback_query(call):
             text_lastfound = "{0} hours ago".format(hours)
 
         logger.debug("Response API: {0}".format(response))
-        hashrate = str(round(response['hashrate'] / 1000000000, 2)) + " GH"
-        networkDificult = str(round(int(response['nodes'][0]['difficulty']) / 1000000000000000, 3)) + " P"
-        networkHashrate = str(round(int(response['nodes'][0]['lastBeat']) / 10000000, 2)) + " TH"
+        hashrate = format_hashrate(response['hashrate'])
+        networkDificult = format_hashrate(response['nodes'][0]['difficulty'], 3)
+        networkHashrate = format_hashrate(response_2['currentStats']['hashrate'])
         messageText = u"\U0001F465 Miners Online: *{0}*\n\n".format(response['minersTotal'])
         messageText = messageText + u"\U0001F6A7 Pool Hash Rate: *{0}*\n\n".format(hashrate)
         messageText = messageText + u"\U0001F552 Last Block Found: *{0}*\n\n".format(text_lastfound)
         messageText = messageText + u"\U0001F513 Network Difficulty: *{0}*\n\n".format(networkDificult)
+        messageText = messageText + "⌛ Block Time: *{0}* s\n\n".format(str(round(float(response_2['currentStats']['block_time']), 2)))
         messageText = messageText + u"\u26A1 Network Hash Rate: *{0}*\n\n".format(networkHashrate)
         messageText = messageText + u"\U0001F4F6 Blockchain Height: *{0}*".format(
             thousandSep(response["nodes"][0]["height"]))
@@ -563,8 +576,8 @@ def callback_query(call):
             bot.edit_message_reply_markup(chat_id=call.message.chat.id, message_id=call.message.message_id,
                                           reply_markup=keyboardStats3(infoUserCall))
         else:
-            currentHashrate = str(round(responseStats['currentHashrate'] / 1000000000, 2)) + " GH"
-            hashrate = str(round(responseStats['hashrate'] / 1000000000, 2)) + " GH"
+            currentHashrate = format_hashrate(responseStats['currentHashrate'])
+            hashrate = format_hashrate(responseStats['hashrate'])
 
             messageText = u"\U0001F6A7  *Hashrate:*\n"
             messageText = messageText + "   - Current Hashrate (30m): *{0}*\n".format(currentHashrate)

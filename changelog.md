@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.0] - 2020-10-24
+### Added
+- Added information on Average Block Time
+- Added function to put automatic labels in hashrate
+
+### Fixed
+- Fix errors in Network Hasrate statistics
+
 ## [1.1.0] - 2020-10-08
 ### Added
 - Commands to enable and disable payment notifications
