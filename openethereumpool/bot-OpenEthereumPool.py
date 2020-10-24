@@ -593,7 +593,7 @@ def callback_query(call):
             messageText = messageText + "   - Total Payments: *{0}*\n".format(responseStats['paymentsTotal'])
 
             if 'paid' in responseStats['stats']:
-                messageText = messageText + "   - Total Paid: *{0}*\n\n".format(responseStats['stats']['paid'] / 1000000000)
+                messageText = messageText + "   - Total Paid: *{0}* ETH\n\n".format(responseStats['stats']['paid'] / 1000000000)
             else:
                 messageText = messageText + "   - Total Paid: *-*\n\n"
                 
